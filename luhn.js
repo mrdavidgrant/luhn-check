@@ -1,27 +1,35 @@
-const input = process.argv[2].split('')
+// const input = process.argv[2]
 
-console.log('Original Input:', input)
-input.push('x')
-console.log('After check digit:', input)
+// console.log('Original Input:', input)
 
 
-
-function algorithm(arr) {
-// double every other digit starting from the right
-  const checksum = 0
-  for (let i = arr.length - 2; i >=0; i -= 2) {
+function getCheckDigit(arr){
+  for (let i = arr.length - 1; i >=0; i -= 2) {
     arr[i] = arr[i] * 2
     if (arr[i] > 9) {
       arr[i] -= 9
     }
   }
-  console.log('After doubling:', arr)
-  for (i = 0; i < arr.length - 1; i++){
-    checksum += arr[i]
+  // console.log('After doubling:', arr)
+  let checkSum = 0
+  for (i = 0; i < arr.length; i++){
+    checkSum += parseInt(arr[i])
   }
-
-
-  return checksum
+  // console.log('CheckSum:', checkSum)
+  let checkDigit = (checkSum * 9) % 10
+  // console.log('checkDigit:', checkDigit)
+  return checkDigit
 }
 
-console.log(algorithm(input))
+function check(input){
+  const workingInput = input.split('')
+  // console.log('workingInput:', workingInput)
+  const inputCheckDigit = parseInt(workingInput.pop())
+  // console.log('workingInput:', workingInput)
+  // console.log('inputCheckDigit:', inputCheckDigit)
+  const checkDigit = getCheckDigit(workingInput)
+  // console.log('Calculated checkDigit:', checkDigit)
+ return (inputCheckDigit === checkDigit)
+}
+
+// console.log(check(input))
